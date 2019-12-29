@@ -6,12 +6,13 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { SubTask } from '../models/subtask';
 import { User } from '../models/user';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
 
-  BASE_URL = '/api/';
+  BASE_URL = environment.api + '/api/';
 
   constructor(private http: HttpClient) { }
 
@@ -20,7 +21,7 @@ export class AppService {
   }
 
   getProjectById(id: string) {
-    return this.http.get<Project>(`${this.BASE_URL}project/${id}`);
+    return this.http.get<Project>(`${this.BASE_URL}project/${id}/`);
   }
 
   createProject(project: Project) {
@@ -32,7 +33,7 @@ export class AppService {
   }
 
   deleteProject(id: string) {
-    return this.http.delete(`${this.BASE_URL}project/${id}`);
+    return this.http.delete(`${this.BASE_URL}project/${id}/`);
   }
 
   getTasks(projectId: string): Observable<Task[]> {
@@ -40,7 +41,7 @@ export class AppService {
   }
 
   getTaskById(projectId: string, taskId: string) {
-    return this.http.get<Task>(`${this.BASE_URL}project/${projectId}/task/${taskId}`);
+    return this.http.get<Task>(`${this.BASE_URL}project/${projectId}/task/${taskId}/`);
   }
 
   createTask(projectId: string, task: Task) {
@@ -52,7 +53,7 @@ export class AppService {
   }
 
   deleteTask(task: Task) {
-    return this.http.delete(`${this.BASE_URL}project/${task.project_id}/task/${task.id}`);
+    return this.http.delete(`${this.BASE_URL}project/${task.project_id}/task/${task.id}/`);
   }
 
   getUsers(): Observable<User[]>{
